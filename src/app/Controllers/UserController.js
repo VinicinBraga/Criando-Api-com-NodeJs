@@ -24,6 +24,14 @@ class UserController {
       });
     }
 
+    //verifico se email já existe no cadastro
+    let userExist = await User.findOne({ email: req.body.email });
+    if (userExist) {
+      return res.status(400).json({
+        error: true,
+        message: "Email already exist",
+      });
+    }
     //desestruturação dos dados da req
     const { name, email, password } = req.body;
 
